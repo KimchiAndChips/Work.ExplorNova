@@ -24,6 +24,9 @@ void main(uint3 threadID : SV_DispatchThreadID )
 	start.w = 1.0f;
 	start = mul(start, tWorldInverse);
 	
+	Output[threadIndex] = getPressureAtObject(start.xyz);
+	return;
+	
 	float4 end;
 	end.xyz = thisLine.End;
 	end.w = 1.0f;
@@ -32,14 +35,14 @@ void main(uint3 threadID : SV_DispatchThreadID )
 	float3 lineStep = (end.xyz - start.xyz) / iterations;
 	float3 xyz = start.xyz;
 	
-	float totalPressure = 0.0f;
+	float maxPressure = 0.0f;
 	
 	for(int i=0; i<iterations; i++) {
-		totalPressure += getElementAtObject(xyz).Pressure;
+		maxPressure = max(maxPressure, getElementAtObject(xyz).Pressure);
 		xyz += lineStep;
 		Output[threadIndex] = xyz.x;
 	}
-	Output[threadIndex] = totalPressure / (float) iterations;
+	Output[threadIndex] = maxPressure; //totalPressure / (float) iterations;
 }
  
 technique11 Main

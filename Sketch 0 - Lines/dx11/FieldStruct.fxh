@@ -35,6 +35,10 @@ uint getElementIndex(uint3 textureIndex) {
 	textureIndex.z * TextureSize.x * TextureSize.y;
 }
 
+FieldElement getElement(uint3 textureIndex) {
+	return Field[getElementIndex(textureIndex)];
+}
+
 float4 getObjectCoord(uint3 threadIndex) {
 	uint3 outputCoordinate = uint3(threadIndex.x, threadIndex.y, threadIndex.z);
 	float4 textureCoord;
@@ -56,4 +60,16 @@ FieldElement getElementAtObject(float3 objectCoord) {
 	textureCoord /= textureCoord.w;
 	
 	return Field[getElementIndex(textureCoord.xyz)];
+}
+
+float getPressureAtObject(float3 objectCoord) {
+	float4 object;
+	object.xyz = objectCoord;
+	object.w = 1.0f;
+	
+	float4 textureCoords = mul(object, tObjectToTexture);
+	textureCoords /= textureCoords.w;
+	
+	uint3 fieldCoords = textureCoords.xyz * (float3) TextureSize;
+	return getElement(fieldCoords).Pressure;
 }

@@ -2,11 +2,12 @@
 //@help: 
 //@tags: lines
 //@credits: 
+#define FIELD_BUFFER_READONLY
 #include "../dx11/FieldStruct.fxh"
 
 Texture2D<float3> worldTexture : PREVIOUS;
-StructuredBuffer<FieldElement> field;
 float4x4 tWorldToTexture <String uiname="Transform World To Texture";>;
+StructuredBuffer<float> Highlight;
 
 SamplerState linearSampler : IMMUTABLE
 {
@@ -20,7 +21,8 @@ struct psInput
 	float4 p : SV_Position;
 	float2 uv : TEXCOORD0;
 };
-int index;
+
+int Count = 1024;
 
 float4 PS(psInput input) : SV_Target
 {
@@ -28,13 +30,14 @@ float4 PS(psInput input) : SV_Target
 	world.xyz = worldTexture.Sample(linearSampler,input.uv);
 	world.w = 1.0f;
 	
-	float4 textureCoords = mul(world, tWorldToTexture);
-	textureCoords /= textureCoords.w;
+	float4 output;
+	output.rgb = getPressureAtObject(world.xyz);
+	output.a = 1.0f;
 	
-	uint3 fieldCoords = textureCoords.xyz * (float3) TextureSize;
-	uint fieldIndex = getElementIndex(fieldCoords);
+	int lineIndex = input.uv.y * (float) Count;
+	output.r = Highlight[lineIndex];
 	
-	return field[fieldIndex].Pressure;
+	return output;
 }
 
 technique10 Process
