@@ -1,0 +1,49 @@
+//@author: elliotwoods
+//@help: 
+//@tags: lines
+//@credits: 
+#include "../dx11/FieldStruct.fxh"
+
+Texture2D<float3> worldTexture : PREVIOUS;
+StructuredBuffer<FieldElement> field;
+float4x4 tWorldToTexture <String uiname="Transform World To Texture";>;
+
+SamplerState linearSampler : IMMUTABLE
+{
+    Filter = MIN_MAG_MIP_LINEAR;
+    AddressU = Clamp;
+    AddressV = Clamp;
+};
+
+struct psInput
+{
+	float4 p : SV_Position;
+	float2 uv : TEXCOORD0;
+};
+int index;
+
+float4 PS(psInput input) : SV_Target
+{
+	float4 world;
+	world.xyz = worldTexture.Sample(linearSampler,input.uv);
+	world.w = 1.0f;
+	
+	float4 textureCoords = mul(world, tWorldToTexture);
+	textureCoords /= textureCoords.w;
+	
+	uint3 fieldCoords = textureCoords.xyz * (float3) TextureSize;
+	uint fieldIndex = getElementIndex(fieldCoords);
+	
+	return field[fieldIndex].Pressure;
+}
+
+technique10 Process
+{
+	pass P0
+	{
+		SetPixelShader(CompileShader(ps_5_0,PS()));
+	}
+}
+
+
+
