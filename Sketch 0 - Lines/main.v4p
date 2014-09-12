@@ -777,7 +777,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="24300" top="7290" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" values="SineField">
+   <PIN pinname="Input Enum" slicecount="1" values="Blank">
    </PIN>
    </NODE>
    <LINK srcnodeid="84" srcpinname="Output Enum" dstnodeid="79" dstpinname="Technique">
@@ -905,7 +905,7 @@
    <LINK srcnodeid="95" srcpinname="Layer" dstnodeid="91" dstpinname="Layer 3">
    </LINK>
    <NODE systemname="SetSubVolumeFieldStruct (DX11.Effect)" filename="dx11\SetSubVolumeFieldStruct.fx" nodename="SetSubVolumeFieldStruct (DX11.Effect)" componentmode="Hidden" id="96">
-   <BOUNDS type="Node" left="27240" top="7935" width="100" height="100">
+   <BOUNDS type="Node" left="27315" top="8775" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Layer" visible="1">
    </PIN>
@@ -922,6 +922,10 @@
    <PIN pinname="Transform Texture To World" visible="1">
    </PIN>
    <PIN pinname="Transform Texture To Object" visible="1">
+   </PIN>
+   <PIN pinname="Transform Object To Texture" visible="1">
+   </PIN>
+   <PIN pinname="PositionXYZ" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="94" srcpinname="Layer" dstnodeid="91" dstpinname="Layer 5">
@@ -947,9 +951,9 @@
    </PIN>
    <PIN pinname="Rows" slicecount="1" values="3">
    </PIN>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
    </NODE>
-   <LINK srcnodeid="98" srcpinname="Y Output Value" dstnodeid="96" dstpinname="PositionXYZ">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="100" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="30990" top="6510" width="795" height="240">
    </BOUNDS>
@@ -1159,7 +1163,7 @@
    <NODE systemname="RandomSpread (Spreads)" nodename="RandomSpread (Spreads)" componentmode="Hidden" id="112">
    <BOUNDS type="Node" left="28140" top="4770" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Input" slicecount="1" values="2">
+   <PIN pinname="Input" slicecount="1" values="0.5" visible="1">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
@@ -1167,7 +1171,7 @@
    </PIN>
    <PIN pinname="Random Seed" visible="1">
    </PIN>
-   <PIN pinname="Width" slicecount="1" values="2">
+   <PIN pinname="Width" slicecount="1" values="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="112" srcpinname="Output" dstnodeid="98" dstpinname="Y Input Value">
@@ -1571,5 +1575,51 @@
    <LINK srcnodeid="141" srcpinname="Output" dstnodeid="142" dstpinname="Set">
    </LINK>
    <LINK srcnodeid="142" srcpinname="Output" dstnodeid="131" dstpinname="Data">
+   </LINK>
+   <LINK srcnodeid="55" srcpinname="Transform Out" dstnodeid="96" dstpinname="Transform Object To Texture">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="143" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="31575" top="27075" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="31575" top="27075" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Bang">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="143" srcpinname="Y Output Value" dstnodeid="142" dstpinname="Reset">
+   </LINK>
+   <NODE systemname="Divide (Value)" nodename="Divide (Value)" componentmode="Hidden" id="144">
+   <BOUNDS type="Node" left="28050" top="3510" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Input 2" slicecount="1" values="2">
+   </PIN>
+   </NODE>
+   <NODE systemname="Map (Value)" nodename="Map (Value)" componentmode="Hidden" id="145">
+   <BOUNDS type="Node" left="28110" top="6285" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Destination Maximum" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="98" srcpinname="Y Output Value" dstnodeid="145" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="7" srcpinname="Y Output Value" dstnodeid="145" dstpinname="Destination Maximum">
+   </LINK>
+   <LINK srcnodeid="145" srcpinname="Output" dstnodeid="96" dstpinname="PositionXYZ">
    </LINK>
    </PATCH>
