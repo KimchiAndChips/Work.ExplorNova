@@ -15,6 +15,9 @@ using namespace ofxCvGui;
 
 #include "ofxDigitalEmulsion/External/Item/KinectV2.h"
 #include "ofxDigitalEmulsion/External/Procedure/Calibrate/ProjectorFromKinectV2.h"
+#include "ofxDigitalEmulsion/External/Procedure/Calibrate/CameraFromKinectV2.h"
+
+#include "../../../addons/ofxEdsdk/src/External/ofxMachineVision/CanonDSLRDevice.h"
 
 #define PROJECTOR_COUNT 4
 
@@ -36,6 +39,6 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 
 		ofxCvGui::Builder gui;
-		ofxDigitalEmulsion::Item::World world;
+		ofxDigitalEmulsion::Graph::World world;
 		ofxSplashScreen splashScreen;
 };

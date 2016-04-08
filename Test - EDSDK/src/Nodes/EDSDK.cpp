@@ -7,6 +7,11 @@ using namespace ofxCvGui;
 
 //--------
 EDSDK::EDSDK() {
+
+}
+
+//--------
+void EDSDK::init() {
 	auto group = MAKE(Panels::Groups::Grid);
 	auto liveViewView = MAKE(Panels::Draws, this->camera.getLiveTexture());
 	auto photoView = MAKE(Panels::Image, this->image);

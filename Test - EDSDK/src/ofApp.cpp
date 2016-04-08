@@ -10,23 +10,43 @@ void ofApp::setup2(){
 	splashScreen.init("splashScreen.png");
 	splashScreen.begin(0.0f);
 	
-	auto cameraTest = MAKE(EDSDK);
-	this->world.add(cameraTest);
+	//auto cameraTest = MAKE(EDSDK);
+	//world.add(cameraTest);
 
+	auto cameraDevice = MAKE(ofxMachineVision::Device::CanonDSLRDevice);
+	auto cameraNode = MAKE(ofxDigitalEmulsion::Item::Camera);
+	cameraNode->setDevice(cameraDevice);
+	world.add(cameraNode);
+
+	
 	auto kinect = MAKE(ofxDigitalEmulsion::Item::KinectV2);
 	this->world.add(kinect);
 
-	auto projectorOutput = MAKE(ofxDigitalEmulsion::Device::ProjectorOutput);
-	this->world.add(projectorOutput);
+	auto checkerboard = MAKE(ofxDigitalEmulsion::Item::Checkerboard);
+	this->world.add(checkerboard);
 
-	auto projector = MAKE(ofxDigitalEmulsion::Item::Projector);
-	this->world.add(projector);
+	auto cameraFromKinect = MAKE(ofxDigitalEmulsion::Procedure::Calibrate::CameraFromKinectV2);
+	cameraFromKinect->connect(cameraNode);
+	cameraFromKinect->connect(kinect);
+	cameraFromKinect->connect(checkerboard);
+	this->world.add(cameraFromKinect);
 
-	auto projectorFromKinect = MAKE(ofxDigitalEmulsion::Procedure::Calibrate::ProjectorFromKinectV2);
-	projectorFromKinect->connect(projectorOutput);
-	projectorFromKinect->connect(kinect);
-	projectorFromKinect->connect(projector);
-	this->world.add(projectorFromKinect);
+	for (int i = 0; i < PROJECTOR_COUNT; i++) {
+		auto projectorOutput = MAKE(ofxDigitalEmulsion::Device::ProjectorOutput);
+		projectorOutput->setName("Projector Output " + ofToString(i));
+		this->world.add(projectorOutput);
+
+		auto projector = MAKE(ofxDigitalEmulsion::Item::Projector);
+		projector->setName("Projector " + ofToString(i));
+		this->world.add(projector);
+
+		auto projectorFromKinect = MAKE(ofxDigitalEmulsion::Procedure::Calibrate::ProjectorFromKinectV2);
+		projectorFromKinect->connect(projectorOutput);
+		projectorFromKinect->connect(kinect);
+		projectorFromKinect->connect(projector);
+		projectorFromKinect->setName("Projector From Kinect " + ofToString(i));
+		this->world.add(projectorFromKinect);
+	}
 
 	this->gui.init();
 	this->world.init(this->gui.getController());

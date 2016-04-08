@@ -1,0 +1,99 @@
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha32.1.dtd" >
+   <PATCH nodename="E:\openFrameworks\apps\Installation.ExplorNova\Test 3 - See chessboard\main.v4p" systemname="main" filename="E:\openFrameworks\apps\Installation.ExplorNova\Test 3 - See chessboard\main.v4p">
+   <BOUNDS type="Window" left="9900" top="6000" width="9000" height="8340">
+   </BOUNDS>
+   <NODE systemname="FileImage (CV.Image)" filename="%VVVV%\packs\VVVV.Packs.CV\nodes\plugins\VVVV.CV.Nodes.dll" nodename="FileImage (CV.Image)" componentmode="Hidden" id="0">
+   <BOUNDS type="Node" left="1035" top="540" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Filename" slicecount="1" values="|..\Test - EDSDK\bin\data\test.bmp|">
+   </PIN>
+   <PIN pinname="Reload" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <NODE systemname="GridView (DX11.Layer)" filename="%VVVV%\packs\VVVV.Packs.CV\nodes\modules\Image\OpenCV\GridView (DX11.Layer).v4p" nodename="GridView (DX11.Layer)" componentmode="Hidden" id="1">
+   <BOUNDS type="Node" left="1050" top="1185" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Image" visible="1">
+   </PIN>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="0" srcpinname="Output" dstnodeid="1" dstpinname="Image">
+   </LINK>
+   <NODE systemname="Renderer (DX11)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11)" componentmode="InABox" id="2">
+   <BOUNDS type="Node" left="525" top="1710" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="525" top="1710" width="6000" height="4500">
+   </BOUNDS>
+   <BOUNDS type="Window" left="11070" top="7950" width="6240" height="5085">
+   </BOUNDS>
+   <PIN pinname="Layers" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="1" srcpinname="Layer" dstnodeid="2" dstpinname="Layers">
+   </LINK>
+   <NODE systemname="FindBoard (CV.Image)" filename="%VVVV%\packs\VVVV.Packs.CV\nodes\plugins\VVVV.CV.Nodes.dll" nodename="FindBoard (CV.Image)" componentmode="Hidden" id="3">
+   <BOUNDS type="Node" left="2400" top="810" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Board size X" slicecount="1" values="6">
+   </PIN>
+   <PIN pinname="Board size Y" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Pre-test at 1024 resolution" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="0" srcpinname="Output" dstnodeid="3" dstpinname="Input">
+   </LINK>
+   <PACK Name="VVVV.Packs" Version="0.1.0">
+   </PACK>
+   <PACK Name="addonpack" Version="31.9.0">
+   </PACK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="4" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="2430" top="1125" width="795" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="2430" top="1125" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Vector Size" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Y Input Value">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="3" srcpinname="PositionXY" dstnodeid="4" dstpinname="Y Input Value">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="5" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="3765" top="1095" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="3765" top="1095" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Bang">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="3" srcpinname="Success" dstnodeid="5" dstpinname="Y Input Value">
+   </LINK>
+   <NODE systemname="Renderer (DX11)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11)" componentmode="FullScreen" id="6">
+   <BOUNDS type="Node" left="6135" top="1125" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6135" top="1125" width="6000" height="4500">
+   </BOUNDS>
+   <BOUNDS type="Window" left="68085" top="3435" width="6240" height="5085">
+   </BOUNDS>
+   <PIN pinname="Layers" visible="1" slicecount="1" values="||">
+   </PIN>
+   </NODE>
+   </PATCH>

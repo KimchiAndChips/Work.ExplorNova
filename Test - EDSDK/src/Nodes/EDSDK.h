@@ -7,6 +7,7 @@
 class EDSDK : public ofxDigitalEmulsion::Graph::Node {
 public:
 	EDSDK();
+	void init() override;
 	string getTypeName() const override;
 	ofxDigitalEmulsion::Graph::PinSet getInputPins() const override;
 	void serialize(Json::Value &) override { };
